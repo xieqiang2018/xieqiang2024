@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+{% assign tag = page.tag %}
+<h1>标签: {{ tag }}</h1>
+
+<div class="post-list">
+  {% for post in site.tags[tag] %}
+  <li>
+    <h2>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </h2>
+    <div class="post-meta">
+      <time datetime="{{ post.date | date_to_xmlschema }}">
+        {{ post.date | date: '%Y年%m月%d日' }}
+      </time>
+    </div>
+    <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+  </li>
+  {% endfor %}
+</div>

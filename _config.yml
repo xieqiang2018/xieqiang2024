@@ -1,0 +1,27 @@
+title: 创业知识库
+description: 记录创业路上的思考、经验和教训
+baseurl: "" 
+url: "https://xieqiang2018.github.io"
+
+author: 谢强2024
+email: 1182614726@qq.com
+github: "xieqiang2018"
+
+# giscus评论配置 (可选)
+# 去 https://giscus.app 获取
+giscus:
+  repo: "xieqiang2018/xieqiang2024"
+  repoId: ""
+  category: "Comments"
+  categoryId: ""
+
+# 分页设置
+paginate: 10
+paginate_path: "/page:num/"
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-seo-tag

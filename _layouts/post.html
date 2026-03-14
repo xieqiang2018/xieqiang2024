@@ -1,0 +1,66 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: '%Y年%m月%d日' }}
+      </time>
+      {% if page.author %}
+        <span class="post-author"> · {{ page.author }}</span>
+      {% endif %}
+    </div>
+    <div class="post-categories">
+      {% if page.categories %}
+        分类: 
+        {% for category in page.categories %}
+          <a href="{{ '/categories/' | append: category | relative_url }}">{{ category }}</a>{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="post-tags">
+      {% if page.tags %}
+        标签: 
+        {% for tag in page.tags %}
+          <a href="{{ '/tags/' | append: tag | relative_url }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  {% if page.categories %}
+    <div class="post-navigation">
+      {% for category in page.categories %}
+        {% assign posts = site.categories[category] | where_exp:"post","post.url != page.url" %}
+        {% for post in posts limit:3 %}
+          <a href="{{ post.url | relative_url }}" class="related-post">→ {{ post.title }}</a>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</article>
+
+<!-- 评论功能 -->
+{% if site.giscus.repo %}
+<script src="https://giscus.app/client.js"
+        data-repo="{{ site.giscus.repo }}"
+        data-repo-id="{{ site.giscus.repoId }}"
+        data-category="{{ site.giscus.category }}"
+        data-category-id="{{ site.giscus.categoryId }}"
+        data-mapping="{{ site.giscus.mapping }}"
+        data-strict="{{ site.giscus.strict }}"
+        data-reactions-enabled="{{ site.giscus.reactionsEnabled }}"
+        data-emit-metadata="{{ site.giscus.emitMetadata }}"
+        data-input-position="{{ site.giscus.inputPosition }}"
+        data-theme="{{ site.giscus.theme }}"
+        data-lang="{{ site.giscus.lang }}"
+        crossorigin="anonymous"
+        async>
+</script>
+{% endif %}
